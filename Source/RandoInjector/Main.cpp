@@ -125,7 +125,7 @@ DWORD Process(char* ProcessName)
 //                                 /\___/                     /\___/                            
 //                                 \/__/                      \/__/   
 
-int main()
+int main(int argc, const char* argv[])
 {
 	std::cout << "   ____       _      _         __   __________  ___________ ____ " << std::endl;
 	std::cout << "  / __ \\_____(_)____(_)____   / /  / ____/ __ \\/ ____/ ___// __ \\" << std::endl;
@@ -139,6 +139,13 @@ int main()
 	std::cout << "/_/   /_/\\__,_/\\__, /_____/\\__,_/\\__, /                          " << std::endl;
 	std::cout << "              /____/            /____/                           " << std::endl << std::endl;
 	std::cout << "(Based on Rando-Injector)" << std::endl;
+
+	std::string c = argv[1];
+
+	if ((argc == 2 && c == "A") || (argc == 2 && c == "a")/* || (argc == 4 && c == "M") || (argc == 4 && c == "m")*/)
+	{
+		goto A;
+	}
 
 	char s;
 
@@ -194,37 +201,50 @@ int main()
 		}
 		else
 		{
+			A:
 			_JUNK_BLOCK(jmp_label22)
 				DWORD dwProcess;
 
 			_JUNK_BLOCK(jmp_label23)
 				char myDLL[MAX_PATH];
 
-			_JUNK_BLOCK(jmp_label24)
-				GetFullPathName(DLL_NAME, MAX_PATH, myDLL, 0);
+			/*if ((argc == 4 && c == "M") || (argc == 4 && c == "m"))
+			{
+				_JUNK_BLOCK(jmp_label24)
+					GetFullPathName(argv[3], MAX_PATH, myDLL, 0);
 
-			_JUNK_BLOCK(jmp_label25)
-				dwProcess = Process(injproc);
+				char* M = const_cast<char*>(argv[4]);
 
-			_JUNK_BLOCK(jmp_label26)
+				_JUNK_BLOCK(jmp_label25)
+					dwProcess = Process(M);
+			}
+			else
+			{*/
+				_JUNK_BLOCK(jmp_label26)
+					GetFullPathName(DLL_NAME, MAX_PATH, myDLL, 0);
+
+				_JUNK_BLOCK(jmp_label27)
+					dwProcess = Process(injproc);
+			//}
+			_JUNK_BLOCK(jmp_label28)
 				HANDLE hProcess = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION, FALSE, dwProcess);
 
-			_JUNK_BLOCK(jmp_label27)
+			_JUNK_BLOCK(jmp_label29)
 				LPVOID allocatedMem = VirtualAllocEx(hProcess, NULL, sizeof(myDLL), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE);
 
-			_JUNK_BLOCK(jmp_label28)
+			_JUNK_BLOCK(jmp_label30)
 				WriteProcessMemory(hProcess, allocatedMem, myDLL, sizeof(myDLL), NULL);
 
-			_JUNK_BLOCK(jmp_label29)
+			_JUNK_BLOCK(jmp_label31)
 				CreateRemoteThread(hProcess, 0, 0, (LPTHREAD_START_ROUTINE)LoadLibrary, allocatedMem, 0, 0);
 
-			_JUNK_BLOCK(jmp_label30)
+			_JUNK_BLOCK(jmp_label32)
 				CloseHandle(hProcess);
 
-			_JUNK_BLOCK(jmp_label31)
+			_JUNK_BLOCK(jmp_label33)
 				return 0;
 
-			_JUNK_BLOCK(jmp_label32)
+			_JUNK_BLOCK(jmp_label34)
 		}
 	}
 	else
