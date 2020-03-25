@@ -137,17 +137,18 @@ int main()
 	std::cout << "  / /_/ / / __ `/ / / / / / / __ `/ / / /                        " << std::endl;
 	std::cout << " / ____/ / /_/ / /_/ / /_/ / /_/ / /_/ /                         " << std::endl;
 	std::cout << "/_/   /_/\\__,_/\\__, /_____/\\__,_/\\__, /                          " << std::endl;
-	std::cout << "              /____/            /____/                           \n" << std::endl;
+	std::cout << "              /____/            /____/                           " << std::endl << std::endl;
 	std::cout << "(Based on Rando-Injector)" << std::endl;
 
 	char s;
 
 	std::cout << "Auto(A) or manual(M) inject: ";
 	std::cin >> s;
+	std::cout << std::endl;
 
-	if (s == 'A' || s == 'M')
+	if (s == 'A' || s == 'M' || s == 'a' || s == 'm')
 	{
-		if (s == 'M')
+		if (s == 'M' || s == 'm')
 		{
 			std::string DLL_NAMEM;
 			std::string injprocM;
