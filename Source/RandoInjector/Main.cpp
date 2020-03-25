@@ -6,7 +6,7 @@
 #define DLL_NAME "MY_DLL_NAME.dll"
 
 //Change process name here
-#define injproc Process("csgo.exe")
+#define injproc "csgo.exe"
 
 // And you need:
 // 1. change all bytes(0x00, 0x01, 0x03....) in define "JUNKS" to random bytes
@@ -126,7 +126,7 @@ int main()
 	GetFullPathName(DLL_NAME, MAX_PATH, myDLL, 0);
 	
 	_JUNK_BLOCK(jmp_label4)
-	dwProcess = injproc;
+	dwProcess = Process(injproc);
 	
 	_JUNK_BLOCK(jmp_label15)
 	HANDLE hProcess = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION, FALSE, dwProcess);
