@@ -5,7 +5,7 @@
 // Change "MY_DLL_NAME.dll" to your dll name
 #define DLL_NAME "MY_DLL_NAME.dll"
 
-//Change process name here
+//Change "csgo.exe" to your process name here
 #define injproc "csgo.exe"
 
 // And you need:
