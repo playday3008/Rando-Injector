@@ -9,6 +9,7 @@
 //Change "csgo.exe" to your process name here
 #define injproc "csgo.exe"
 
+#pragma region Junk code
 // And you need:
 // 1. change all bytes(0x00, 0x01, 0x03....) in define "JUNKS" to random bytes
 // 2. change size this block by add new bytes
@@ -228,6 +229,7 @@ __asm _emit 0xA2 \
 __asm _emit 0xFF \
 __asm _emit 0x73 \
 
+#endregion
 
 // Don't change this!
 #define _JUNK_BLOCK(s) __asm jmp s JUNKS __asm s:
